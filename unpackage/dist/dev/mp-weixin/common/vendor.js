@@ -5935,10 +5935,10 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "E:\\coding\\uni-app\\carfy-demo\\pages.json":
-/*!***********************************************!*\
-  !*** E:/coding/uni-app/carfy-demo/pages.json ***!
-  \***********************************************/
+/***/ "E:\\coding\\uni-app\\carfy\\pages.json":
+/*!******************************************!*\
+  !*** E:/coding/uni-app/carfy/pages.json ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

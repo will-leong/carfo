@@ -6,22 +6,28 @@
 		</view>
 		<view class="content">
 			<view v-show="current === 0">
-				<view class="uni-common-mt" style="padding: 20upx 35upx;">
-					<view class="grace-bg-white uni-flex uni-row box-shadow" style="padding: 20upx;border-radius: 20upx;justify-content: space-between;">
+				<view class="grace-bg-white box-shadow" style="margin: 35upx;border-radius: 20upx;overflow: hidden;">
+					<view class="uni-flex uni-row" style="justify-content: space-between;">
 						<view class="uni-flex-item uni-flex uni-column" style="flex: 4;">
-							<view class="uni-flex-item" style="display: flex;justify-content: flex-start;align-items: center;">
-								<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
-								<text style="padding-left: 10upx;">出发地</text>
+							<view class="uni-flex uni-row" style="align-items: flex-start;justify-content: space-between;">
+								<view class="uni-flex tag-view" style="align-items: flex-start;">
+									<uni-tag text="行程匹配中" type="success" size="small" style="border-radius: 20upx 0;"></uni-tag>
+								</view>
+								<!-- <view>
+									<text>今天 12：00</text>
+								</view> -->
 							</view>
-							<view class="uni-flex-item" style="display: flex;justify-content: flex-start;align-items: center;">
+							<view class="uni-flex-item" style="padding: 0 20upx; display: flex;justify-content: flex-start;align-items: center;">
 								<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
-								<text style="padding-left: 10upx;">目的地</text>
+								<text style="padding-left: 10upx;">宅梧镇</text>
 							</view>
-							<view class="uni-flex-item" style="display: flex;justify-content: flex-start;align-items: center;">
-								<text style="font-size: 20upx;color: #D1D1D1;">时间：今天 12：00</text>
+							<view class="uni-flex-item" style="padding: 0 20upx 35upx; display: flex;justify-content: flex-start;align-items: center;">
+								<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
+								<text style="padding-left: 10upx;">鹤山汽车总站</text>
 							</view>
 						</view>
 						<view class="uni-flex-item" style="flex: 1;display: flex;justify-content: center;align-items: center;">
+							
 							<view>
 								<uni-icon type="forward" size="28" color="#2c2c2c"></uni-icon>
 							</view>
@@ -48,11 +54,11 @@
 									<view class="grace-label">计划时间</view>
 									<input type="text" class="input" v-model="passenger.planTime" disabled="true"></input>
 								</view>
-								<view class="grace-items" v-show="passenger.showMessage">
+								<view class="grace-items" v-if="passenger.showMessage">
 									<view class="grace-label">大概里程</view>
 									<input type="text" class="input" v-model="passenger.distance" disabled="true"></input>
 								</view>
-								<view class="grace-items grace-noborder" v-show="passenger.showMessage">
+								<view class="grace-items grace-noborder" v-if="passenger.showMessage">
 									<view class="grace-label">预计价格</view>
 									<input type="text" class="input" v-model="passenger.estimatedPrice" disabled="true"></input>
 								</view>
@@ -81,6 +87,7 @@
 	import QQMapWX from '../../common/qqmap-wx-jssdk.min.js'
 	import uniSegmentedControl from '../../components/uni-segmented-control/uni-segmented-control.vue';
 	import uniIcon from "../../components/uni-icon/uni-icon.vue"
+	import uniTag from "../../components/uni-tag/uni-tag.vue"
 
 	var qqmapsdk = new QQMapWX({
 		key: 'S6PBZ-76735-PTZIT-Q27QH-LKQQO-FQBTW'
@@ -90,7 +97,8 @@
 		components: {
 			mpvuePicker,
 			uniSegmentedControl,
-			uniIcon
+			uniIcon,
+			uniTag
 		},
 		data() {
 			return {
