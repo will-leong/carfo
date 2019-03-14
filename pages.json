@@ -1,0 +1,60 @@
+{
+    "pages" : [
+        //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        {
+            "path" : "pages/release/release",
+            "style" : {}
+        },
+        {
+            "path" : "pages/location/location",
+            "style" : {}
+        },
+        {
+            "path" : "pages/message/message",
+            "style" : {}
+        },
+        {
+            "path" : "pages/my/my",
+            "style" : {}
+        },
+        {
+            "path" : "pages/origin-map/origin-map",
+            "style" : {}
+        }
+    ],
+    "globalStyle" : {
+        "navigationBarTextStyle" : "black",
+        "navigationBarBackgroundColor" : "#F8F8F8",
+        "backgroundColor" : "#F8F8F8"
+    },
+    "tabBar" : {
+        "color" : "#8a8a8a",
+        "selectedColor" : "#2c2c2c",
+        "list" : [
+            {
+                "pagePath" : "pages/release/release",
+                "text" : "发布",
+                "iconPath" : "static/release.png",
+                "selectedIconPath" : "static/release-fill.png"
+            },
+            {
+                "pagePath" : "pages/location/location",
+                "text" : "附近",
+                "iconPath" : "static/location.png",
+                "selectedIconPath" : "static/location_fill.png"
+            },
+            {
+                "pagePath" : "pages/message/message",
+                "text" : "消息",
+                "iconPath" : "static/message.png",
+                "selectedIconPath" : "static/message_fill.png"
+            },
+            {
+                "pagePath" : "pages/my/my",
+                "text" : "我的",
+                "iconPath" : "static/my.png",
+                "selectedIconPath" : "static/my_fill.png"
+            }
+        ]
+    }
+}

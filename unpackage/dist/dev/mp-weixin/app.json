@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/release/release",
+    "pages/location/location",
+    "pages/message/message",
+    "pages/my/my",
+    "pages/origin-map/origin-map"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {},
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#2c2c2c",
+    "list": [
+      {
+        "pagePath": "pages/release/release",
+        "text": "发布",
+        "iconPath": "static/release.png",
+        "selectedIconPath": "static/release-fill.png"
+      },
+      {
+        "pagePath": "pages/location/location",
+        "text": "附近",
+        "iconPath": "static/location.png",
+        "selectedIconPath": "static/location_fill.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息",
+        "iconPath": "static/message.png",
+        "selectedIconPath": "static/message_fill.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "static/my.png",
+        "selectedIconPath": "static/my_fill.png"
+      }
+    ]
+  },
+  "permission": {}
+}
