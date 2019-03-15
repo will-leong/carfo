@@ -518,7 +518,7 @@
 ._input {
 	font-size: 32rpx !important;
 }
-.box-shadow{
+.box-shadow {
 	-webkit-box-shadow: 0 0 50rpx #e1e1e1;
 	        box-shadow: 0 0 50rpx #e1e1e1;
 }

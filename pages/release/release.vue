@@ -6,28 +6,37 @@
 		</view>
 		<view class="content">
 			<view v-show="current === 0">
-				<view class="grace-bg-white box-shadow" style="margin: 35upx;border-radius: 20upx;overflow: hidden;">
+				<view v-for="order in passenger.orders" :key="order.index" class="grace-bg-white box-shadow" style="margin: 35upx;border-radius: 20upx;overflow: hidden;">
 					<view class="uni-flex uni-row" style="justify-content: space-between;">
-						<view class="uni-flex-item uni-flex uni-column" style="flex: 4;">
-							<view class="uni-flex uni-row" style="align-items: flex-start;justify-content: space-between;">
-								<view class="uni-flex tag-view" style="align-items: flex-start;">
-									<uni-tag text="行程匹配中" type="success" size="small" style="border-radius: 20upx 0;"></uni-tag>
+						<view class="uni-flex uni-column" style="flex: 7;">
+							<view class="uni-flex" style="align-items: flex-start;">
+								<text size="small" style="border-radius: 20upx 0;background: #09BB07;font-size: 22upx;color: #FFFFFF;padding: 0 20upx;">{{order.status}}</text>
+							</view>
+							<view class="uni-flex uni-row">
+								<view class="uni-flex" style="flex: 1; align-items: center;justify-content: center;margin-bottom: 20upx;padding: 0 20upx;">
+									<text style="font-size: 24px;font-weight: bold;">{{order.planTime}}</text>
 								</view>
-								<!-- <view>
-									<text>今天 12：00</text>
-								</view> -->
-							</view>
-							<view class="uni-flex-item" style="padding: 0 20upx; display: flex;justify-content: flex-start;align-items: center;">
-								<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
-								<text style="padding-left: 10upx;">宅梧镇</text>
-							</view>
-							<view class="uni-flex-item" style="padding: 0 20upx 35upx; display: flex;justify-content: flex-start;align-items: center;">
-								<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
-								<text style="padding-left: 10upx;">鹤山汽车总站</text>
+								<view class="uni-flex-item uni-flex uni-column" style="flex: 4;">
+									<view class="uni-flex-item" style="padding: 0; display: flex;justify-content: flex-start;align-items: center;">
+										<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
+										<text style="padding-left: 10upx;">{{order.originLocation}}</text>
+									</view>
+									<view class="uni-flex-item" style="padding: 0 0 20upx; display: flex;justify-content: flex-start;align-items: center;">
+										<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
+										<text style="padding-left: 10upx;">{{order.destinationLocation}}</text>
+									</view>
+								</view>
+								<view class="uni-flex-item uni-flex uni-column" style="flex: 2;margin-bottom: 20upx;padding-left: 20upx;border-left: dashed 1px;">
+									<view class="uni-flex-item" style="padding: 0; display: flex;justify-content: flex-start;align-items: center;font-size: 24upx;">
+										<text style="padding-left: 10upx;color: #808080;">{{order.approximateDistance}}</text>
+									</view>
+									<view class="uni-flex-item" style="padding: 0; display: flex;justify-content: flex-start;align-items: center;font-size: 24upx;">
+										<text style="padding-left: 10upx;color: #808080;">{{order.estimatedPrice}}</text>
+									</view>
+								</view>
 							</view>
 						</view>
 						<view class="uni-flex-item" style="flex: 1;display: flex;justify-content: center;align-items: center;">
-							
 							<view>
 								<uni-icon type="forward" size="28" color="#2c2c2c"></uni-icon>
 							</view>
@@ -56,7 +65,7 @@
 								</view>
 								<view class="grace-items" v-if="passenger.showMessage">
 									<view class="grace-label">大概里程</view>
-									<input type="text" class="input" v-model="passenger.distance" disabled="true"></input>
+									<input type="text" class="input" v-model="passenger.approximateDistance" disabled="true"></input>
 								</view>
 								<view class="grace-items grace-noborder" v-if="passenger.showMessage">
 									<view class="grace-label">预计价格</view>
@@ -88,7 +97,8 @@
 	import uniSegmentedControl from '../../components/uni-segmented-control/uni-segmented-control.vue';
 	import uniIcon from "../../components/uni-icon/uni-icon.vue"
 	import uniTag from "../../components/uni-tag/uni-tag.vue"
-
+	import Vue from 'vue'
+	
 	var qqmapsdk = new QQMapWX({
 		key: 'S6PBZ-76735-PTZIT-Q27QH-LKQQO-FQBTW'
 	})
@@ -110,7 +120,7 @@
 				styleType: 'button',
 				activeColor: '#2c2c2c',
 
-				passenger: {
+				passengerInit: {
 					origin: {
 						location: "",
 						longitude: 0,
@@ -123,12 +133,11 @@
 					},
 					nums: 1,
 					planTime: "",
-					distance: '',
+					approximateDistance: '',
 					estimatedPrice: '',
-					
 					showMessage: false
 				},
-
+				passenger: {},
 				numsArray: [{
 					label: 1,
 					value: 1
@@ -150,10 +159,41 @@
 				deepLength: 3
 			}
 		},
+		onLoad() {
+			this.passenger = this.copyObject(this.passengerInit)
+			this.passenger['orders'] = [{
+				originLocation: '宅梧镇',
+				destinationLocation: '鹤山汽车总站',
+				planTime: '8:00',
+				approximateDistance: '45.23km',
+				estimatedPrice: '41元',
+				status: '行程匹配中'
+			}]
+		},
 		methods: {
+			copyObject(obj) {
+				var copyObj = new Object()
+				for (var item in obj) {
+					if (obj[item] instanceof Object)
+						copyObj[item] = this.copyObject(obj[item])
+					else{
+						copyObj[item] = obj[item]
+					}
+				}
+				return copyObj
+			},
+			setObject(objSet,objInit){
+				for (var item in objInit) {
+					if (objInit[item] instanceof Object)
+						this.setObject(objSet[item],objInit[item])
+					else{
+						Vue.set(objSet,item,objInit[item])
+					}
+				}
+			},
 			chooseLocation(obj) {
 				wx.showLoading({
-				  title: '加载中',
+					title: '加载中',
 				})
 				uni.chooseLocation({
 					success(res) {
@@ -166,19 +206,18 @@
 					}
 				});
 			},
-			bindPickerChange: function(e) {
-				console.log(e);
-				this.passengerNumIndex = e.detail.value;
-			},
-			bindDateChange: function(e) {
-				this.dateValue = e.detail.value;
-			},
-			formSubmit: function(e) {
-				wx.showToast({
-					title: '请观察控制台',
-					icon: 'loading'
-				});
-				console.log(JSON.stringify(e.detail.value));
+			formSubmit() {
+				console.log(this.passenger)
+				var order = {
+					originLocation: this.passenger.origin.location,
+					destinationLocation: this.passenger.destination.location,
+					planTime: this.passenger.planTime.replace('今天-',''),
+					approximateDistance: this.passenger.approximateDistance,
+					estimatedPrice: this.passenger.estimatedPrice,
+					status: '行程匹配中'
+				}
+				this.passenger.orders.push(order)
+				this.setObject(this.passenger,this.passengerInit)
 			},
 			showSinglePicker() {
 				this.isSingle = true
@@ -215,11 +254,11 @@
 					}
 				}
 			},
-			getDistance(obj) {
+			getapproximateDistance(obj) {
 				if (obj.origin.latitude !== 0 && obj.destination.latitude !== 0) {
 					console.log(obj)
 					obj.showMessage = true;
-					obj.distance = '计算中...'
+					obj.approximateDistance = '计算中...'
 					obj.estimatedPrice = '计算中...'
 					qqmapsdk.direction({
 						mode: 'driving',
@@ -233,8 +272,8 @@
 						},
 						success: function(res) {
 							console.log(res)
-							obj.distance = (res.result.routes[0].distance / 1000).toFixed(2).toString() + 'km'
-							obj.estimatedPrice = (res.result.routes[0].distance / 1000 * 0.85).toFixed(2) + '元'
+							obj.approximateDistance = (res.result.routes[0].approximateDistance / 1000).toFixed(2).toString() + 'km'
+							obj.estimatedPrice = (res.result.routes[0].approximateDistance / 1000 * 0.85).toFixed(2) + '元'
 						},
 						fail: function(error) {
 							console.error(error);
@@ -252,8 +291,8 @@
 			},
 		},
 		computed: {
-			passengerDistance() {
-				return this.getDistance(this.passenger)
+			passengerapproximateDistance() {
+				return this.getapproximateDistance(this.passenger)
 			}
 		}
 	}
@@ -277,7 +316,8 @@
 	input {
 		font-size: 32upx !important;
 	}
-	.box-shadow{
+
+	.box-shadow {
 		box-shadow: 0 0 50upx #e1e1e1;
 	}
 </style>
