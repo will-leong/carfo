@@ -10,15 +10,19 @@
             "style" : {}
         },
         {
-            "path" : "pages/message/message",
-            "style" : {}
-        },
-        {
             "path" : "pages/my/my",
             "style" : {}
         },
         {
             "path" : "pages/origin-map/origin-map",
+            "style" : {}
+        },
+        {
+            "path" : "pages/orderDetail/orderDetail",
+            "style" : {}
+        },
+        {
+            "path" : "pages/travel/travel",
             "style" : {}
         }
     ],
@@ -44,8 +48,8 @@
                 "selectedIconPath" : "static/location_fill.png"
             },
             {
-                "pagePath" : "pages/message/message",
-                "text" : "消息",
+                "pagePath" : "pages/travel/travel",
+                "text" : "行程",
                 "iconPath" : "static/message.png",
                 "selectedIconPath" : "static/message_fill.png"
             },

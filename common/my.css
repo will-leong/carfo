@@ -1,0 +1,27 @@
+.box-shadow {
+	box-shadow: 0 0 50upx #e1e1e1;
+}
+.box-radius{
+	border-radius: 20upx;
+}
+.my-flex-rcl{
+	align-items: center;
+}
+.my-flex-rcr{
+	justify-content: flex-end;
+	align-items: flex-end;
+}
+.my-flex-ccl{
+	align-items: flex-start;
+	justify-content: center;
+}
+.my-flex-rcc{
+	align-items: center;
+	justify-content: center;
+}
+.my-flex-clb{
+	justify-content: flex-end;
+}
+.in-line-padding{
+	padding: 0 10upx;
+}

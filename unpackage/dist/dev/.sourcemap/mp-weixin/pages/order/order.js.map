@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///E:/coding/uni-app/carfy/main.js"],"names":["Page","App"],"mappings":";;;;;;;;;;AAAA;AACA;AACI,+I;AACAA,IAAI,CAAC,+BAAYC,cAAZ,CAAD,CAAJ,C","file":"pages/order/order.js","sourcesContent":["import 'uni-pages';\nimport pageFactory from 'mpvue-page-factory'\n    import App from './pages/order/order.vue'\n    Page(pageFactory(App))"],"sourceRoot":""}

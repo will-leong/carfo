@@ -1,3 +1,4 @@
 <import src="/components/uni-segmented-control/uni-segmented-control.vue.wxml" />
+<import src="/components/uni-icon/uni-icon.vue.wxml" />
 <import src="/components/mpvue-picker/mpvuePicker.vue.wxml" />
 

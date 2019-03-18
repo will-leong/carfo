@@ -4,7 +4,8 @@
     "pages/location/location",
     "pages/message/message",
     "pages/my/my",
-    "pages/origin-map/origin-map"
+    "pages/origin-map/origin-map",
+    "pages/order/order"
   ],
   "subPackages": [],
   "window": {

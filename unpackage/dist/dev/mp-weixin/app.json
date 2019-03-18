@@ -2,9 +2,10 @@
   "pages": [
     "pages/release/release",
     "pages/location/location",
-    "pages/message/message",
     "pages/my/my",
-    "pages/origin-map/origin-map"
+    "pages/origin-map/origin-map",
+    "pages/orderDetail/orderDetail",
+    "pages/travel/travel"
   ],
   "subPackages": [],
   "window": {
@@ -30,8 +31,8 @@
         "selectedIconPath": "static/location_fill.png"
       },
       {
-        "pagePath": "pages/message/message",
-        "text": "消息",
+        "pagePath": "pages/travel/travel",
+        "text": "行程",
         "iconPath": "static/message.png",
         "selectedIconPath": "static/message_fill.png"
       },

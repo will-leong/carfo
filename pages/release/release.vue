@@ -7,41 +7,46 @@
 		<view class="content">
 			<view v-show="current === 0">
 				<view v-for="order in passenger.orders" :key="order.index" class="grace-bg-white box-shadow" style="margin: 35upx;border-radius: 20upx;overflow: hidden;">
+					<navigator url="../orderDetail/orderDetail">
 					<view class="uni-flex uni-row" style="justify-content: space-between;">
-						<view class="uni-flex uni-column" style="flex: 7;">
+						<view class="uni-flex uni-column" style="flex: 7;padding-bottom: 20upx;">
 							<view class="uni-flex" style="align-items: flex-start;">
 								<text size="small" style="border-radius: 20upx 0;background: #09BB07;font-size: 22upx;color: #FFFFFF;padding: 0 20upx;">{{order.status}}</text>
 							</view>
 							<view class="uni-flex uni-row">
-								<view class="uni-flex" style="flex: 1; align-items: center;justify-content: center;margin-bottom: 20upx;padding: 0 20upx;">
-									<text style="font-size: 24px;font-weight: bold;">{{order.planTime}}</text>
+								<view class="uni-flex uni-row my-flex-rcc" style="flex: 0 0 200upx;">
+									
+									<text class="grace-h3" style="font-weight: bold;">{{order.planTime.time}}
+										<text class="grace-text-small">{{order.planTime.date}}</text>
+									</text>
 								</view>
-								<view class="uni-flex-item uni-flex uni-column" style="flex: 4;">
-									<view class="uni-flex-item" style="padding: 0; display: flex;justify-content: flex-start;align-items: center;">
-										<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
-										<text style="padding-left: 10upx;">{{order.originLocation}}</text>
+								<view class="uni-flex uni-column" style="flex: 4;">
+									<view>
+										<uni-icon type="circle-filled" size="14" color="#09BB07"></uni-icon>
+										<text class="grace-h5 in-line-padding">{{order.originLocation}}</text>
 									</view>
-									<view class="uni-flex-item" style="padding: 0 0 20upx; display: flex;justify-content: flex-start;align-items: center;">
-										<uni-icon type="circle" size="10" color="#2c2c2c"></uni-icon>
-										<text style="padding-left: 10upx;">{{order.destinationLocation}}</text>
-									</view>
-								</view>
-								<view class="uni-flex-item uni-flex uni-column" style="flex: 2;margin-bottom: 20upx;padding-left: 20upx;border-left: dashed 1px;">
-									<view class="uni-flex-item" style="padding: 0; display: flex;justify-content: flex-start;align-items: center;font-size: 24upx;">
-										<text style="padding-left: 10upx;color: #808080;">{{order.approximateDistance}}</text>
-									</view>
-									<view class="uni-flex-item" style="padding: 0; display: flex;justify-content: flex-start;align-items: center;font-size: 24upx;">
-										<text style="padding-left: 10upx;color: #808080;">{{order.estimatedPrice}}</text>
+									<view>
+										<uni-icon type="circle-filled" size="14" color="#09BB07"></uni-icon>
+										<text class="grace-h5 in-line-padding">{{order.destinationLocation}}</text>
 									</view>
 								</view>
+								<!-- <view class="uni-flex uni-column" style="flex: 0 0 150upx;padding-left: 20upx;">
+									<view class="uni-flex grace-text-small">
+										<text style="padding-left: 10upx;color: #808080;">约{{order.approximateDistance}}</text>
+									</view>
+									<view class="uni-flex grace-text-small">
+										<text style="padding-left: 10upx;color: #808080;">预计{{order.estimatedPrice}}</text>
+									</view>
+								</view> -->
 							</view>
 						</view>
-						<view class="uni-flex-item" style="flex: 1;display: flex;justify-content: center;align-items: center;">
+						<view class="uni-flex my-flex-rcc" style="flex: 0 0 100upx;">
 							<view>
 								<uni-icon type="forward" size="28" color="#2c2c2c"></uni-icon>
 							</view>
 						</view>
 					</view>
+					</navigator>
 				</view>
 				<view class="release-page">
 					<view class="grace-form box-shadow">
@@ -61,7 +66,7 @@
 								</view>
 								<view class="grace-items" @click="showMulPicker()">
 									<view class="grace-label">计划时间</view>
-									<input type="text" class="input" v-model="passenger.planTime" disabled="true"></input>
+									<view class="uni-flex my-flex-rcl"><text>{{passenger.planTime.date+' '+passenger.planTime.time}}</text></view>
 								</view>
 								<view class="grace-items" v-if="passenger.showMessage">
 									<view class="grace-label">大概里程</view>
@@ -79,7 +84,7 @@
 					</view>
 
 					<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
-					 @onConfirm="onPickerConfirm($event,passenger)" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+					 @onConfirm="onPickerConfirm($event,passenger)" :pickerValueArray="pickerValueArray"></mpvue-picker>
 				</view>
 			</view>
 			<view v-show="current === 1">
@@ -132,7 +137,10 @@
 						latitude: 0,
 					},
 					nums: 1,
-					planTime: "",
+					planTime: {
+						date:'',
+						time:''
+					},
 					approximateDistance: '',
 					estimatedPrice: '',
 					showMessage: false
@@ -164,7 +172,10 @@
 			this.passenger['orders'] = [{
 				originLocation: '宅梧镇',
 				destinationLocation: '鹤山汽车总站',
-				planTime: '8:00',
+				planTime: {
+					date:'今天',
+					time: '8:00'
+				},
 				approximateDistance: '45.23km',
 				estimatedPrice: '41元',
 				status: '行程匹配中'
@@ -192,6 +203,7 @@
 				}
 			},
 			chooseLocation(obj) {
+				console.log(obj)
 				wx.showLoading({
 					title: '加载中',
 				})
@@ -250,7 +262,9 @@
 							icon: 'none'
 						});
 					} else {
-						obj.planTime = e.label
+						var labels = e.label.split('-')
+						obj.planTime.date = labels[0]
+						obj.planTime.time = labels[1]+':'+labels[2]
 					}
 				}
 			},
@@ -272,8 +286,8 @@
 						},
 						success: function(res) {
 							console.log(res)
-							obj.approximateDistance = (res.result.routes[0].approximateDistance / 1000).toFixed(2).toString() + 'km'
-							obj.estimatedPrice = (res.result.routes[0].approximateDistance / 1000 * 0.85).toFixed(2) + '元'
+							obj.approximateDistance = (res.result.routes[0].distance / 1000).toFixed(2).toString() + 'km'
+							obj.estimatedPrice = (res.result.routes[0].distance / 1000 * 0.85).toFixed(2) + '元'
 						},
 						fail: function(error) {
 							console.error(error);
@@ -315,9 +329,5 @@
 	.grace-label,
 	input {
 		font-size: 32upx !important;
-	}
-
-	.box-shadow {
-		box-shadow: 0 0 50upx #e1e1e1;
 	}
 </style>
